@@ -27,9 +27,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
+@SuppressWarnings("unused")
 public class ResourceTest {
     @Test
     public void testMipmapIcLauncher() throws Exception {
         assertTrue(R.mipmap.ic_launcher > 0);
+    }
+
+    @Test
+    public void testStrings() throws Exception {
+        assertTrue(R.string.app_name > 0);
     }
 }

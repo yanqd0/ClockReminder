@@ -36,6 +36,9 @@ public class MainActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                CharSequence text = mTextView.getText();
+                text = text + "\nFrom yanqd0.";
+                mTextView.setText(text);
             }
         });
     }
