@@ -7,13 +7,13 @@ android:
     - tools
     - android-24
     - build-tools-24.0.2
-    - platform-tools-24
+    - platform-tools
     - extra-android-support
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
 
-script: ./gradlew build --info
+script: ./gradlew build
 
 after_failure:
   for name in $(find $TRAVIS_BUILD_DIR -name lint-results*.xml); do echo $name; cat -n $name; done
