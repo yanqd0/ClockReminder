@@ -13,6 +13,8 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-script: ./gradlew build
+script:
+  - ./gradlew build
+  - ./gradlew test
 
 # vim: set shiftwidth=2 tabstop=2 softtabstop=-1 expandtab:
