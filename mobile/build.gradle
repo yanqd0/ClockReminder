@@ -72,8 +72,8 @@ class Ver {
     }
 
     private static def String getGitDescription() {
-        Process process = "git describe --always".execute()
+        Process process = "git rev-parse HEAD".execute()
         process.waitFor()
-        return process.getText().trim()
+        return process.getText().substring(0, 6)
     }
 }
