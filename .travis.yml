@@ -13,6 +13,9 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-script: ./gradlew build
+script: ./gradlew build --info
+
+after_failure:
+  for name in $(find $TRAVIS_BUILD_DIR -name lint-results*.xml); do echo $name; cat -n $name; done
 
 # vim: set shiftwidth=2 tabstop=2 softtabstop=-1 expandtab:
