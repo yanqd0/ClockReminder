@@ -15,4 +15,6 @@ android:
 
 script: ./gradlew build
 
+after_failure: cat $TRAVIS_BUILD_DIR/common/build/outputs/lint-results-debug.xml
+
 # vim: set shiftwidth=2 tabstop=2 softtabstop=-1 expandtab:
