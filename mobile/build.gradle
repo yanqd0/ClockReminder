@@ -45,7 +45,6 @@ dependencies {
     compile project(':common')
     wearApp project(':wear')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
 }
 
 class Ver {
