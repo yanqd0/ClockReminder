@@ -19,36 +19,33 @@
 package io.github.yanqd0.clockreminder;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
 import android.widget.TextView;
 
+/**
+ * It is the main activity, which provides the switch of reminding.
+ *
+ * @author yanqd0
+ */
 public final class WearActivity extends Activity implements OnCheckedChangeListener {
-    private SharedPreferences preferences;
-    private String reminderKey;
     private Switch reminderSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wear_switch);
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        reminderKey = getString(R.string.reminder_switch);
         reminderSwitch = (Switch) findViewById(R.id.reminder_switch);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        boolean on = preferences.getBoolean(reminderKey, false);
         reminderSwitch.setOnCheckedChangeListener(this);
-        reminderSwitch.setChecked(on);
+        reminderSwitch.setChecked(Option.isReminding(this));
     }
 
     @Override
@@ -59,9 +56,11 @@ public final class WearActivity extends Activity implements OnCheckedChangeListe
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(reminderKey, isChecked);
-        editor.apply();
+        if (isChecked) {
+            Option.startReminding(this);
+        } else {
+            Option.stopReminding(this);
+        }
 
         changeViewColor(isChecked);
     }
