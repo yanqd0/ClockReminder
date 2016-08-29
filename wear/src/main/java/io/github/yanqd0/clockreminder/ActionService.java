@@ -23,6 +23,7 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -65,6 +66,7 @@ public final class ActionService extends IntentService {
     private void handleActionChime() {
         Log.d(Option.TAG, "handleActionChime()");
         wakeLock();
+        vibrate();
         startChimeActivity();
         scheduleNextChime();
     }
@@ -76,6 +78,12 @@ public final class ActionService extends IntentService {
                 PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
         PowerManager.WakeLock wakeLock = pm.newWakeLock(levelAndFlags, Option.TAG);
         wakeLock.acquire(1000);
+    }
+
+    private void vibrate() {
+        final long[] intervals = new long[]{0, 150, 100, 250, 100, 400};
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(intervals, -1);
     }
 
     private void startChimeActivity() {
