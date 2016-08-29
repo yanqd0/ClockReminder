@@ -20,6 +20,7 @@ package io.github.yanqd0.clockreminder;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -31,6 +32,20 @@ import java.util.Calendar;
  * @author yanqd1
  */
 public final class ChimeActivity extends Activity {
+    private static final long MAX_MILLIS = 10000L;
+
+    private final CountDownTimer countDownTimer = new CountDownTimer(MAX_MILLIS, MAX_MILLIS) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // pass
+        }
+
+        @Override
+        public void onFinish() {
+            finish();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +55,20 @@ public final class ChimeActivity extends Activity {
         TextView clockText = (TextView) findViewById(R.id.clock_text);
         clockText.setText(String.valueOf(hour));
         Log.i(Option.TAG, "hour: " + hour);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        countDownTimer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        countDownTimer.cancel();
+        if (!isFinishing()) {
+            finish();
+        }
     }
 }
