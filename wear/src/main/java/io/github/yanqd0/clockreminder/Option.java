@@ -51,23 +51,16 @@ final class Option {
         }
     }
 
-    static void startReminding(Context context) {
-        if (isReminding(context)) return;
-        Log.v(TAG, "startReminding()");
-        updatePreferences(context, true);
+    static void setReminding(Context context, boolean enabled) {
+        Log.v(TAG, "setReminding( " + enabled + " )");
+        updatePreferences(context, enabled);
 
         Intent intent = new Intent(context, ActionService.class);
-        intent.setAction(ActionService.ACTION_START);
-        context.startService(intent);
-    }
-
-    static void stopReminding(Context context) {
-        if (!isReminding(context)) return;
-        Log.v(TAG, "stopReminding()");
-        updatePreferences(context, false);
-
-        Intent intent = new Intent(context, ActionService.class);
-        intent.setAction(ActionService.ACTION_STOP);
+        if (enabled) {
+            intent.setAction(ActionService.ACTION_START);
+        } else {
+            intent.setAction(ActionService.ACTION_STOP);
+        }
         context.startService(intent);
     }
 

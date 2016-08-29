@@ -36,7 +36,7 @@ public final class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.v(Option.TAG, "Boot completed.");
         if (Option.isReminding(context)) {
-            Option.startReminding(context);
+            Option.setReminding(context, true);
         }
     }
 }

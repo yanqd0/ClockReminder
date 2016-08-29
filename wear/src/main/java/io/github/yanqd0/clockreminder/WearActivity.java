@@ -56,12 +56,7 @@ public final class WearActivity extends Activity implements OnCheckedChangeListe
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            Option.startReminding(this);
-        } else {
-            Option.stopReminding(this);
-        }
-
+        Option.setReminding(this, isChecked);
         changeViewColor(isChecked);
     }
 
