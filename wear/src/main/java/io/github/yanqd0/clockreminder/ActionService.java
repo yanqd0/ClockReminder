@@ -18,9 +18,13 @@
 
 package io.github.yanqd0.clockreminder;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
+
+import java.util.Calendar;
 
 /**
  * To take some actions in the background.
@@ -28,8 +32,9 @@ import android.util.Log;
  * @author yanqd0
  */
 public final class ActionService extends IntentService {
-    public static final String ACTION_START = "io.github.yanqd0.clockreminder.action.ACTION_START";
-    public static final String ACTION_STOP = "io.github.yanqd0.clockreminder.action.ACTION_STOP";
+    static final String ACTION_START = "io.github.yanqd0.clockreminder.action.ACTION_START";
+    static final String ACTION_STOP = "io.github.yanqd0.clockreminder.action.ACTION_STOP";
+    private static final String ACTION_CHIME = "io.github.yanqd0.clockreminder.action.ACTION_CHIME";
 
     public ActionService() {
         super("ActionService");
@@ -43,6 +48,8 @@ public final class ActionService extends IntentService {
         if (action == null) return;
 
         switch (action) {
+            case ACTION_CHIME:
+                handleActionChime();
             case ACTION_START:
                 handleActionStart();
                 break;
@@ -54,11 +61,43 @@ public final class ActionService extends IntentService {
         }
     }
 
+    private void handleActionChime() {
+        Log.d(Option.TAG, "handleActionChime()");
+        startChimeActivity();
+        scheduleNextChime();
+    }
+
+    private void startChimeActivity() {
+        Log.v(Option.TAG, "startChimeActivity()");
+        // TODO: A chime interface should be created.
+    }
+
     private void handleActionStart() {
         Log.d(Option.TAG, "handleActionStart()");
+        scheduleNextChime();
+    }
+
+    private void scheduleNextChime() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+
+        long nextTime = cal.getTimeInMillis();
+        nextTime += AlarmManager.INTERVAL_HOUR;
+
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        am.setExact(AlarmManager.RTC_WAKEUP, nextTime, getClockIntent());
+    }
+
+    private PendingIntent getClockIntent() {
+        Intent intent = new Intent(this, ActionService.class);
+        intent.setAction(ACTION_CHIME);
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void handleActionStop() {
         Log.d(Option.TAG, "handleActionStop()");
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        am.cancel(getClockIntent());
     }
 }
