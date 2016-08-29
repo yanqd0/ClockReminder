@@ -22,6 +22,7 @@ import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -63,13 +64,25 @@ public final class ActionService extends IntentService {
 
     private void handleActionChime() {
         Log.d(Option.TAG, "handleActionChime()");
+        wakeLock();
         startChimeActivity();
         scheduleNextChime();
     }
 
+    private void wakeLock() {
+        PowerManager pm = (PowerManager) this.getSystemService(POWER_SERVICE);
+        @SuppressWarnings("deprecation")
+        int levelAndFlags =
+                PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
+        PowerManager.WakeLock wakeLock = pm.newWakeLock(levelAndFlags, Option.TAG);
+        wakeLock.acquire(1000);
+    }
+
     private void startChimeActivity() {
         Log.v(Option.TAG, "startChimeActivity()");
-        // TODO: A chime interface should be created.
+        Intent intent = new Intent(this, ChimeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void handleActionStart() {

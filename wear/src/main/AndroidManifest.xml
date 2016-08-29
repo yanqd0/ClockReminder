@@ -23,6 +23,7 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="false"
@@ -49,6 +50,14 @@
             android:name=".ActionService"
             android:exported="false">
         </service>
+
+        <activity
+            android:name=".ChimeActivity"
+            android:clearTaskOnLaunch="true"
+            android:enabled="true"
+            android:launchMode="singleTop"
+            android:noHistory="true">
+        </activity>
     </application>
 
 </manifest>
