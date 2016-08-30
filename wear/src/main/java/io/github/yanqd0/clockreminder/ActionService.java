@@ -28,15 +28,17 @@ import android.util.Log;
 
 import java.util.Calendar;
 
+import static io.github.yanqd0.clockreminder.BuildConfig.APPLICATION_ID;
+
 /**
  * To take some actions in the background.
  *
  * @author yanqd0
  */
 public final class ActionService extends IntentService {
-    static final String ACTION_START = "io.github.yanqd0.clockreminder.action.ACTION_START";
-    static final String ACTION_STOP = "io.github.yanqd0.clockreminder.action.ACTION_STOP";
-    private static final String ACTION_CHIME = "io.github.yanqd0.clockreminder.action.ACTION_CHIME";
+    static final String ACTION_START = APPLICATION_ID + ".action.ACTION_START";
+    static final String ACTION_STOP = APPLICATION_ID + ".action.ACTION_STOP";
+    private static final String ACTION_CHIME = APPLICATION_ID + ".action.ACTION_CHIME";
 
     public ActionService() {
         super("ActionService");
