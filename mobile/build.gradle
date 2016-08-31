@@ -27,7 +27,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode Ver.generateVersionCode()
-        versionName Ver.generateVersionName("0.1", 21)
+        versionName Ver.generateVersionName("0.5", 43)
     }
     buildTypes {
         release {
