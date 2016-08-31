@@ -8,7 +8,11 @@ To remind you in every clock on Android Wear.
 
 It's a simple project for just one specific function: **To remind you in every clock on Android Wear**.
 
-Once I got my first Android wear device, I was shocked by its lack of functions. So I start this project as a new journey.
+After the APK in the wear device installed, the APK in the mobile deivce is useless.
+
+There is a switch on the watch, which controls the main function. Open it, then you may never touch it before uninstall.
+
+It's small, but useful.
 
 ## Development environment
 
@@ -38,3 +42,10 @@ In fact, I really don't understand why I chose AGPL as the license of this proje
 >    You should have received a copy of the GNU Affero General Public License
 >    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+## About
+
+Once I got my first Android wear device, I was shocked by its lack of functions. So I start this project as a new journey.
+
+This project is developed to meet my own demand, but I'd like to improve it.
+
+It's welcome to [contact me](mailto:yanqd0@outlook.com).
