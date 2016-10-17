@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import org.no_creativity.anvergen.Ver
+
 apply plugin: 'com.android.application'
 
 android {
@@ -27,7 +29,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 24
         versionCode Ver.generateVersionCode()
-        versionName Ver.generateVersionName("0.5", 43)
+        versionName Ver.generateVersionName()
     }
     buildTypes {
         release {
@@ -45,34 +47,4 @@ dependencies {
     compile project(':common')
     wearApp project(':wear')
     testCompile 'junit:junit:4.12'
-}
-
-class Ver {
-    private static int commits = 0
-
-    private static def getCommitCount() {
-        if (commits == 0) {
-            Process process = "git rev-list --count HEAD".execute()
-            process.waitFor()
-            commits = process.getText().toInteger()
-        }
-        return commits
-    }
-
-    public static def int generateVersionCode() {
-        return getCommitCount()
-    }
-
-    public static def String generateVersionName(String version = "1.0", int offset = 0) {
-        int count = getCommitCount() - offset
-        String sha1 = getGitDescription()
-        String date = new Date().format("yyMMdd")
-        return "$version.$count.$date.$sha1"
-    }
-
-    private static def String getGitDescription() {
-        Process process = "git rev-parse HEAD".execute()
-        process.waitFor()
-        return process.getText().substring(0, 6)
-    }
 }

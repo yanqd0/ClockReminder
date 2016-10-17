@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import org.no_creativity.anvergen.Ver
+
 apply plugin: 'com.android.application'
 
 
@@ -27,8 +29,8 @@ android {
         applicationId "io.github.yanqd0.clockreminder"
         minSdkVersion 20
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode Ver.generateVersionCode()
+        versionName Ver.generateVersionName()
     }
     buildTypes {
         release {
